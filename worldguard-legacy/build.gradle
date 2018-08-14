@@ -34,6 +34,22 @@ processResources {
     }
 }
 
+jar.archiveName="worldguard-legacy-${project.parent.version}.jar"
+jar.destinationDir = file '../mvn/com/boydti/worldguard-legacy/' + project.parent.version
+task createPom << {
+    pom {
+        project {
+            groupId 'com.sk89q'
+            artifactId 'worldguard-legacy'
+            version 'latest'
+        }
+    }
+    .getEffectivePom()
+            .setDependencies(new ArrayList<>())
+            .writeTo("../mvn/com/sk89q/worldguard-legacy/latest/worldguard-legacy-latest.pom")
+}
+
+
 shadowJar {
     dependencies {
         include(dependency(':worldguard-core'))
@@ -46,3 +62,4 @@ shadowJar {
 }
 
 build.dependsOn(shadowJar)
+build.finalizedBy(createPom)
