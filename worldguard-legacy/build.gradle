@@ -1,0 +1,48 @@
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+project.version = '7.0.0-SNAPSHOT'
+ext.internalVersion = project.version + ";" + gitCommitHash
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+checkstyle.configFile = new File(projectDir, "config/checkstyle/checkstyle.xml")
+
+dependencies {
+    compile project(':worldguard-core')
+    compile 'com.google.guava:guava:21.0'
+    compile 'com.boydti:fawe-bukkit:latest'
+    compile 'org.bukkit:bukkit:1.13-R0.1-SNAPSHOT'
+    compile ('com.sk89q:commandbook:2.3') {
+        exclude group: 'com.sk89q', module: 'worldedit'
+        exclude group: 'com.zachsthings.libcomponents'
+        transitive = false
+    }
+    testCompile 'junit:junit:4.11'
+    testCompile 'org.hamcrest:hamcrest-library:1.2.1'
+}
+
+processResources {
+    from (sourceSets.main.resources.srcDirs) {
+        expand project.properties
+        include 'plugin.yml'
+    }
+
+    from (sourceSets.main.resources.srcDirs) {
+        exclude 'plugin.yml'
+    }
+}
+
+shadowJar {
+    dependencies {
+        include(dependency(':worldguard-core'))
+    }
+
+    relocate('org.flywaydb', 'com.sk89q.worldguard.internal.flywaydb')
+    relocate('com.sk89q.squirrelid', 'com.sk89q.worldguard.util.profile')
+    relocate('org.json.simple', 'com.sk89q.worldguard.util.jsonsimple')
+
+}
+
+build.dependsOn(shadowJar)
