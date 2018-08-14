@@ -34,8 +34,8 @@ processResources {
     }
 }
 
-jar.archiveName="worldguard-legacy-${project.parent.version}.jar"
-jar.destinationDir = file '../mvn/com/sk89q/worldguard-legacy/' + project.parent.version
+jar.archiveName="worldguard-legacy-latest.jar"
+jar.destinationDir = file '../mvn/com/sk89q/worldguard-legacy/latest'
 task createPom << {
     pom {
         project {
