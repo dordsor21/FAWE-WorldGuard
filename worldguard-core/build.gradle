@@ -3,6 +3,7 @@ apply plugin: 'idea'
 
 dependencies {
     compile 'org.yaml:snakeyaml:1.19'
+    compile 'com.google.guava:guava:21.0'
     compile 'com.boydti:fawe-api:18.08.14-db65e96-1976'
     compile 'com.sk89q.intake:intake:4.2-SNAPSHOT'
     compile 'com.sk89q:squirrelid:0.1.0'
