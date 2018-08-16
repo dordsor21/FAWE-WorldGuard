@@ -1,5 +1,6 @@
 name: WorldGuard
 main: com.sk89q.worldguard.bukkit.WorldGuardPlugin
 version: "${project.internalVersion}"
-softdepend: [WorldEdit, CommandBook, FastAsyncWorldEdit]
+depend: [WorldEdit]
+softdepend: [CommandBook, FastAsyncWorldEdit]
 api-version: 1.13
